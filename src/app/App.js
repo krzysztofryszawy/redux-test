@@ -1,24 +1,41 @@
-import { createStore } from 'redux';
+import React, { Component } from 'react';
+import './App.css';
+import User from './components/User';
+import { connect } from 'react-redux';
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'ADD':
-      state = state + action.payload;
-      break;
-    case 'SUBTRACT':
-      alert('subtract');
-      break;
+class App extends Component {
+  render() {
+    console.log(this.props);
+    return (
+      <div className="App">
+        <header className="App-header">
+          <p>Redux test App</p>
+          <User username={this.props.user.name} />
+        </header>
+      </div>
+    );
   }
-  return state;
+}
+
+const mapStateToProps = state => {
+  return {
+    user: state.userReducer,
+    math: state.mathReducer
+  };
 };
 
-const store = createStore(reducer, 1);
+const mapDispatchToProps = dispatch => {
+  return {
+    setName: name => {
+      dispatch({
+        type: 'SET_NAME',
+        payload: name
+      });
+    }
+  };
+};
 
-store.subscribe(() => {
-  console.log('Store updated', store.getState());
-});
-
-store.dispatch({
-  type: 'ADD',
-  payload: 10
-});
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

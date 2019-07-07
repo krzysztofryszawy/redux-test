@@ -1,12 +1,11 @@
-// import React from 'react';
-// import ReactDOM from 'react-dom';
+import React from 'react';
+import ReactDOM from 'react-dom';
 // import './index.css';
 
-// import App from './app/App';
-
-// ReactDOM.render(<App />, document.getElementById('root'));
-
+import App from './app/App';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
+import logger from 'redux-logger';
+import { Provider } from 'react-redux';
 
 // ############################### REDUCERS
 const mathReducer = (
@@ -62,6 +61,7 @@ const userReducer = (
 };
 
 // ############################### MIDLEWARE
+//myLogger not used for now
 const myLogger = store => next => action => {
   console.log('Logged Action', action);
   next(action);
@@ -71,12 +71,12 @@ const myLogger = store => next => action => {
 const store = createStore(
   combineReducers({ mathReducer, userReducer }),
   {},
-  applyMiddleware(myLogger)
+  applyMiddleware(logger)
 );
 
 // ############################### SUBSCRIBE
 store.subscribe(() => {
-  console.log('Store updated', store.getState());
+  //   console.log('Store updated', store.getState());
 });
 
 // ############################### DISPATCH
@@ -99,3 +99,10 @@ store.dispatch({
   type: 'SET_AGE',
   payload: 30
 });
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
