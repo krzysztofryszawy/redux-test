@@ -80,25 +80,30 @@ store.subscribe(() => {
 });
 
 // ############################### DISPATCH
-store.dispatch({
-  type: 'ADD',
-  payload: 100
-});
+// store.dispatch({
+//   type: 'ADD',
+//   payload: 100
+// });
 
-store.dispatch({
-  type: 'ADD',
-  payload: 22
-});
+// store.dispatch({
+//   type: 'ADD',
+//   payload: 22
+// });
 
-store.dispatch({
-  type: 'SUBTRACT',
-  payload: 80
-});
+// store.dispatch({
+//   type: 'SUBTRACT',
+//   payload: 80
+// });
 
-store.dispatch({
-  type: 'SET_AGE',
-  payload: 30
-});
+// store.dispatch({
+//   type: 'SET_AGE',
+//   payload: 30
+// });
+
+// store.dispatch({
+//   type: 'SET_NAME',
+//   payload: 'XXXXXXXXX'
+// });
 
 ReactDOM.render(
   <Provider store={store}>

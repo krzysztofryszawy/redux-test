@@ -10,7 +10,10 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <p>Redux test App</p>
-          <User username={this.props.user.name} />
+          <User
+            username={this.props.user.name}
+            setUsername={() => this.props.setName('Iza')}
+          />
         </header>
       </div>
     );
