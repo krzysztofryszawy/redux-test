@@ -6,8 +6,9 @@
 
 // ReactDOM.render(<App />, document.getElementById('root'));
 
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 
+// ############################### REDUCERS
 const mathReducer = (
   state = {
     result: 1,
@@ -60,12 +61,25 @@ const userReducer = (
   return state;
 };
 
-const store = createStore(combineReducers({ mathReducer, userReducer }));
+// ############################### MIDLEWARE
+const myLogger = store => next => action => {
+  console.log('Logged Action', action);
+  next(action);
+};
 
+// ############################### STORE
+const store = createStore(
+  combineReducers({ mathReducer, userReducer }),
+  {},
+  applyMiddleware(myLogger)
+);
+
+// ############################### SUBSCRIBE
 store.subscribe(() => {
   console.log('Store updated', store.getState());
 });
 
+// ############################### DISPATCH
 store.dispatch({
   type: 'ADD',
   payload: 100
@@ -79,4 +93,9 @@ store.dispatch({
 store.dispatch({
   type: 'SUBTRACT',
   payload: 80
+});
+
+store.dispatch({
+  type: 'SET_AGE',
+  payload: 30
 });
